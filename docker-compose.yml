@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+    mariadb-main:
+     image: 'bitnami/mariadb:10.4-debian-10'
+     volumes:
+      - mariadb-main:/bitnami/mariadb
+     restart: always
+     env_file: main.conf
+    mariadb-backup:
+     image: 'bitnami/mariadb:10.4-debian-10'
+     volumes:
+      - mariadb-backup:/bitnami/mariadb
+     depends_on:
+      - mariadb-main
+     env_file: backup.conf
+
+volumes:
+  mariadb-main:
+    driver: local
+  mariadb-backup:
+    driver: local
+
